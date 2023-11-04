@@ -34,7 +34,7 @@ def evaluate_accuracy(dev_loader, model, device):
 
 
 def produce_evaluation_file(dataset, model, device, save_path):
-    data_loader = DataLoader(dataset, batch_size=128, shuffle=False, drop_last=False)
+    data_loader = DataLoader(dataset, batch_size=64, shuffle=False, drop_last=False, num_workers=12)
     model.eval()
     
     for batch_x,utt_id in data_loader:
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     dir_yaml = os.path.splitext('model_config_RawNet')[0] + '.yaml'
 
     with open(dir_yaml, 'r') as f_yaml:
-            parser1 = yaml.load(f_yaml)
+            parser1 = yaml.safe_load(f_yaml)
 
     if not os.path.exists('models'):
         os.mkdir('models')
